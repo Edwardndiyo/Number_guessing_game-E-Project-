@@ -1,0 +1,242 @@
+
+/* Default dark mode styles */
+/* .game-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #282c34;
+  color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.difficulty-selection, .gameplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.difficulty-selection button {
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.beginner {
+  background-color: green;
+}
+
+.amateur {
+  background-color: orange;
+}
+
+.pro {
+  background-color: red;
+}
+
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.number-buttons button {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  width: 4rem;
+  height: 4rem;
+}
+
+.hint-system, .number-buttons {
+  margin: 1rem 0;
+}
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: white;
+}
+
+.gameplay p {
+  margin: 0.5rem 0;
+}
+
+/* Light mode styles 
+.game-page.light {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.difficulty-selection.light button {
+  color: black;
+}
+
+.number-buttons.light button {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.message-box.light {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+
+.number-buttons.light button {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.message-box.light {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+} */
+
+
+/* Default dark mode styles */
+.game-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: #282c34;
+  color: white;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.difficulty-selection, .gameplay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.difficulty-selection button {
+  margin: 0.5rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.beginner {
+  background-color: green;
+}
+
+.amateur {
+  background-color: orange;
+}
+
+.pro {
+  background-color: red;
+}
+
+.number-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+.number-buttons button {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  width: 6rem;
+  height: 4rem;
+}
+
+.hint-system, .number-buttons {
+  margin: 1rem 0;
+}
+
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: white;
+}
+
+.gameplay p {
+  margin: 0.5rem 0;
+}
+
+.highest-score {
+  margin: 1rem 0;
+}
+
+.end-game-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #61dafb;
+  color: black;
+}
+
+/* Light mode styles */
+.game-page.light {
+  background-color: #f0f0f0;
+  color: black;
+}
+
+.difficulty-selection.light button {
+  color: black;
+}
+
+.number-buttons.light button {
+  background-color: #d3d3d3;
+  color: black;
+}
+
+.message-box.light {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+.end-game-button.light {
+  background-color: #282c34;
+  color: white;
+}

@@ -1,0 +1,47 @@
+.leaderboard-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.leaderboard-page.light {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.leaderboard-page.dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.leaderboard-table th {
+  background-color: #61dafb;
+  color: white;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+}
+
+.leaderboard-table td {
+  text-align: center;
+}
+
+.leaderboard-table.light th, .leaderboard-table.light td {
+  background-color: #fff;
+  color: #000;
+}
+
+.leaderboard-table.dark th, .leaderboard-table.dark td {
+  background-color: #333;
+  color: #fff;
+}

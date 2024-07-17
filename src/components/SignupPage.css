@@ -1,0 +1,67 @@
+/* LoginPage.css and SignupPage.css */
+
+.login-page, .signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('/background-image.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.login-card, .signup-card {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}
+
+.login-card h1, .signup-card h1 {
+  margin-bottom: 1rem;
+}
+
+.login-card p, .signup-card p {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: teal;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Light mode styles */
+.login-page.light, .signup-page.light {
+  background: url('/background-image-light.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.login-card.light, .signup-card.light {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+button.light {
+  background-color: gray;
+  color: black;
+}

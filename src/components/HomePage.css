@@ -1,0 +1,129 @@
+.homepage {
+  text-align: center;
+  padding: 2rem;
+}
+
+.homepage.light {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.homepage.dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.hero {
+  background-color: #282c34;
+  color: white;
+  padding: 5rem 1rem;
+  background-image: url('../images/98eb09406e4537d1087bfea99bd5db79.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-image {
+  width: 100px;
+  margin-bottom: 1rem;
+}
+
+.cta-button {
+  background-color: #61dafb;
+  color: #282c34;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background-color: #21a1f1;
+}
+
+.description, .how-to-play, .features, .feedback {
+  margin: 3rem 1rem;
+}
+
+.description .card, .how-to-play .card, .features .feature-card, .feedback .feedback-card {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.description.light .card, .how-to-play.light .card, .features.light .feature-card, .feedback.light .feedback-card {
+  background-color: #fff;
+}
+
+.description.dark .card, .how-to-play.dark .card, .features.dark .feature-card, .feedback.dark .feedback-card {
+  background-color: #333;
+}
+
+.description h2, .how-to-play h2, .features h2, .feedback h2 {
+  background-color: #61dafb;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.description .card p, .how-to-play .card p, .features .feature-card p, .feedback .feedback-card p {
+  margin: 0.5rem 0;
+}
+
+.features .feature-card {
+  display: inline-block;
+  width: calc(50% - 2rem);
+  margin: 1rem;
+  color: white; /* Text color for better contrast */
+  background-size: cover;
+  background-position: center;
+}
+
+.features .feature-card.leaderboard {
+  background-image: url('../images/Rolling_Dice_by_ianllanason_DeviantArt.jpg');
+}
+
+.features .feature-card.difficulty {
+  background-image: url('../images/Rpg_Dice_Drawing.jpg');
+}
+
+.feedback-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.feedback-card {
+  min-width: 200px;
+  margin-right: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-card.light {
+  background-color: #fff;
+}
+
+.feedback-card.dark {
+  background-color: #333;
+}
+
+.feedback-card h3 {
+  margin: 0 0 1rem;
+}

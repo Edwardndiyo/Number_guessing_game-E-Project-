@@ -1,0 +1,141 @@
+/* .profile-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.profile-page.light {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.profile-page.dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #47a7f5;
+}
+
+.scoreboard {
+  margin-top: 2rem;
+}
+
+.scoreboard ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.scoreboard li {
+  margin-bottom: 0.5rem;
+}
+
+.input.light {
+  background-color: #fff;
+  color: #000;
+} */
+
+
+
+.profile-page {
+  text-align: center;
+  padding: 2rem;
+}
+
+.profile-page.light {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.profile-page.dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.profile-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.profile-card,
+.game-records-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card h2,
+.game-records-card h2 {
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #61dafb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #47a7f5;
+}
+
+.error-message {
+  color: red;
+  margin-top: 1rem;
+}
