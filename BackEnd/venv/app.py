@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import smtplib
+from datetime import datetime 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
@@ -124,6 +125,26 @@ def get_highest_score(username):
 
 
 
+@app.route('/update_player_history', methods=['POST'])
+def update_player_history():
+    data = request.get_json()
+    username = data['username']
+    beginner = data['beginner']
+    amateur = data['amateur']   
+    pro = data['pro']
+    totalscore = data['totalscore']
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('INSERT INTO player_history (username, beginner, amateur, pro, totalscore, date) VALUES (%s, %s, %s, %s, %s, %s)', 
+                   (username, beginner, amateur, pro, totalscore, current_time))
+    
+    mysql.connection.commit()
+    cursor.close()
+
+    return jsonify({'message': 'Player history updated successfully'}), 200
+
+
 @app.route('/update_scores', methods=['POST'])
 def update_scores():
     data = request.get_json()
@@ -171,23 +192,30 @@ def get_profile(username):
     else:
         return jsonify({'message': 'User not found'}), 404
 
+
+
 @app.route('/get_game_records/<username>', methods=['GET'])
 def get_game_records(username):
     cursor = mysql.connection.cursor()
-    cursor.execute('SELECT beginner, amateur, pro, totalscore FROM leaderboard WHERE username = %s', (username,))
-    records = cursor.fetchone()
+    cursor.execute('SELECT beginner, amateur, pro, totalscore, date FROM player_history WHERE username = %s', (username,))
+    records = cursor.fetchall()  # Changed from fetchone() to fetchall()
     cursor.close()
 
     if records:
-        records_data = {
-            'beginner': records[0],
-            'amateur': records[1],
-            'pro': records[2],
-            'total': records[3]
-        }
+        # Convert the fetched records to a list of dictionaries
+        records_data = [
+            {
+                'beginner': record[0],
+                'amateur': record[1],
+                'pro': record[2],
+                'total': record[3],
+                'date': record[4]
+            } for record in records
+        ]
         return jsonify(records_data), 200
     else:
         return jsonify({'message': 'Records not found'}), 404
+
 
 @app.route('/update_profile', methods=['POST'])
 def update_profile():

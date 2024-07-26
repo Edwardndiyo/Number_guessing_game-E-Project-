@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -49,6 +47,7 @@ const SignupPage = () => {
   };
 
   return (
+    <div className='signup-card'>
     <div className="signup-page">
       <h1>Sign Up</h1>
       <form onSubmit={handleFormSubmit}>
@@ -75,6 +74,7 @@ const SignupPage = () => {
         <button type="submit">Sign Up</button>
       </form>
       <p>Already have an account? <Link to="/login">Login</Link></p>
+    </div>
     </div>
   );
 };

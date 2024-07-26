@@ -1,56 +1,159 @@
+
+
+/* Footer Styles */
 .footer {
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
+  border-radius: 10px;
+  border: 1px solid;
 }
 
 .footer.light {
   background-color: #f0f0f0;
   color: #000;
+  border-color: #000; /* Black border in light mode */
 }
 
 .footer.dark {
   background-color: #1a1a1a;
   color: #fff;
+  border-color: #fff; /* White border in dark mode */
 }
 
-.footer .links, .footer .social-links, .footer .contact-info, .footer .feedback-form {
-  margin-bottom: 1rem;
-}
-
-.footer .links a, .footer .social-links a {
-  margin: 0 0.5rem;
-  color: inherit;
-  text-decoration: none;
-}
-
-.footer .contact-info p {
-  margin: 0.5rem 0;
-}
-
-.footer .feedback-form form {
+.footer-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.footer .feedback-form input, .footer .feedback-form textarea {
+.feedback-section {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1rem;
+}
+
+.feedback-section h3 {
+  margin-bottom: 1rem;
+}
+
+.feedback-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feedback-section input,
+.feedback-section textarea,
+.feedback-section button {
   width: 80%;
-  margin: 0.5rem 0;
+  margin-bottom: 1rem;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.footer .feedback-form button {
+.feedback-section input[name="username"] {
+  width: 70%;
+}
+
+.feedback-section textarea {
+  width: 80%;
+  height: 80px;
+}
+
+.feedback-section button {
   padding: 0.5rem 1rem;
   background-color: #333;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 150px; /* Defined width */
+  width: 40%;
 }
 
-.footer .feedback-form button:hover {
+.feedback-section button:hover {
   background-color: #555;
+}
+
+.links-section {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 1rem;
+}
+
+.links,
+.social-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.links a,
+.social-links a {
+  margin: 0.5rem 1rem; /* Adjust spacing as needed */
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.social-links a svg {
+  vertical-align: middle;
+}
+
+.contact-info p {
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
+
+.separators {
+  width: 100%;
+  height: 1px;
+  margin: 1rem 0;
+}
+
+.footer.light .separators {
+  background-color: #000; /* Black line in light mode */
+}
+
+.footer.dark .separators {
+  background-color: #fff; /* White line in dark mode */
+}
+
+
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .footer-container {
+    align-items: center;
+  }
+
+  .feedback-section,
+  .links-section {
+    max-width: 100%;
+  }
+
+  .links {
+    flex-direction: row;
+  }
+
+  .links a {
+    font-size: 0.8rem; /* Smaller font size for better fit */
+    margin: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 1rem;
+  }
+
+  .feedback-section,
+  .links-section {
+    max-width: 100%;
+  }
+
+  .links a {
+    font-size: 0.7rem; /* Further reduced font size for very small screens */
+  }
 }

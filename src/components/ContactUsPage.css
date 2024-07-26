@@ -1,13 +1,11 @@
-body {
-  background-color: #1a1a1a;
-  color: #fff;
-  font-family: 'Arial', sans-serif;
-}
-
-.contact-us-page {
+ .contact-us-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: #282c34;
+  color: white;
   padding: 20px;
 }
 
@@ -17,32 +15,27 @@ h1 {
 
 .card-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1100px;
+  flex-wrap: nowrap; /* Prevent wrapping on desktop screens */
+}
+
+.details-card,
+.contact-form {
+  width: 45%; /* Set width for side-by-side layout */
+  margin: 10px;
 }
 
 .card {
-  background-color: rgba(0, 0, 0, 0.8);
   border: 1px solid #333;
-  border-radius: 10px 10px 0 0;
+  border-radius: 10px;
   padding: 20px;
-  margin: 10px;
-  width: 45%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-.card img {
-  max-width: 100%;
-  border-radius: 10px 10px 0 0;
-}
-
-.developer-info {
-  text-align: center;
-}
-
-.developer-info p {
-  margin: 10px 0;
+.contact-form {
+  width: 50%;
 }
 
 .contact-form h2 {
@@ -51,6 +44,7 @@ h1 {
 
 .form-group {
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .form-group label {
@@ -60,7 +54,7 @@ h1 {
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #333;
   border-radius: 5px;
@@ -69,7 +63,7 @@ h1 {
 }
 
 .form-group textarea {
-  resize: none;
+  width: 95%;
   height: 100px;
 }
 
@@ -77,36 +71,133 @@ button {
   background-color: #1E88E5;
   color: #FFF;
   border: none;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 15px;
+  width: 100%; /* Full width for mobile view */
 }
 
 button:hover {
   background-color: #1565C0;
 }
 
-.light-mode body {
-  background-color: #f0f0f0;
+.details-card img {
+  padding-top: 0;
+  margin-top: 0;
+  max-width: 100%;
+  border-radius: 10px 10px 0 0;
+  border: 2px #000;
+  height: 50%;
+}
+
+.details-card p {
+  margin: 10px 0;
+}
+
+.contact-us-page.light {
+  background-color: #d3d3d3;
   color: #000;
 }
 
-.light-mode .card {
+.card.light {
   background-color: rgba(255, 255, 255, 0.9);
   color: #000;
 }
 
-.light-mode .form-group input,
-.light-mode .form-group textarea {
+.form-group input.light,
+.form-group textarea.light {
   background-color: #FFF;
   color: #000;
 }
 
-.light-mode button {
+button.light {
   background-color: #1E88E5;
   color: #FFF;
 }
 
-.light-mode button:hover {
+button:hover.light {
   background-color: #1565C0;
+}
+
+.card img {
+  width: 100%;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* Add some padding for the text content */
+.details-card p {
+  margin-top: 10px;
+}
+
+/* ContactUs.css */
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.bounce {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+.contact-us-page h1 {
+  font-size: 2.5em;
+  color: var(--text-color);
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Media Queries */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .card-container {
+    flex-direction: column; /* Stack cards vertically on tablets */
+    align-items: center;
+  }
+
+  .details-card,
+  .contact-form {
+    width: 90%; /* Adjust width for tablet view */
+    margin-bottom: 20px;
+  }
+
+  .contact-form {
+    width: 90%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .contact-us-page h1 {
+    font-size: 2em;
+  }
+
+  .details-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .contact-form input, 
+  .contact-form textarea {
+    width: 100%;
+    font-size: 0.9em;
+  }
+
+  .contact-form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+  }
 }

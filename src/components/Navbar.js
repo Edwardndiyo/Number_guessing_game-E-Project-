@@ -1,168 +1,45 @@
-// import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
-// import { ThemeContext } from '../App';
-// import './Navbar.css';
-
-// const Navbar = () => {
-//   const { theme, toggleTheme } = useContext(ThemeContext);
-
-//   return (
-//     <nav className={`navbar ${theme}`}>
-//       <h1> Diced </h1>
-//       <ul>
-//         <li>
-//           <Link to="/">Home</Link>
-//         </li>
-//         <li>
-//           <Link to="/game">Game</Link>
-//         </li>
-//         <li>
-//           <Link to="/profile">Profile</Link>
-//         </li>
-//         <li>
-//           <Link to="/leaderboard">Leaderboard</Link>
-//         </li>
-//         <li>
-//           <Link to="/contact">Contact Us</Link>
-//         </li>
-//       </ul>
-//       <button onClick={toggleTheme} className="theme-toggle">
-//         {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-//       </button>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-// import React, { useContext } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { AuthContext } from '../context/AuthContext';
-// import './Navbar.css';
-
-// const Navbar = () => {
-//   const { isAuthenticated, logout, username } = useContext(AuthContext);
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     logout();
-//     navigate('/login');
-//   };
-
-//   return (
-//     <nav className="navbar">
-//       <ul>
-//         <li><Link to="/">Home</Link></li>
-//         <li><Link to="/game">Game</Link></li>
-//         <li><Link to="/profile">Profile</Link></li>
-//         <li><Link to="/leaderboard">Leaderboard</Link></li>
-//         <li><Link to="/contact">Contact Us</Link></li>
-//       </ul>
-//       <div className="auth-section">
-//         {isAuthenticated ? (
-//           <>
-//             <span>Welcome, {username}!</span>
-//             <button onClick={handleLogout}>Logout</button>
-//           </>
-//         ) : (
-//           <Link to="/login">Login</Link>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-// import React, { useContext } from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { AuthContext } from '../context/AuthContext';
-// import './Navbar.css';
-
-// const Navbar = () => {
-//   const { isAuthenticated, logout, username } = useContext(AuthContext);
-//   const navigate = useNavigate();
-
-//   const handleLogout = () => {
-//     logout();
-//     navigate('/login');
-//   };
-
-//   return (
-//     <nav className="navbar">
-//       <ul>
-//         <li><Link to="/">Home</Link></li>
-//         <li><Link to="/game">Game</Link></li>
-//         <li><Link to="/profile">Profile</Link></li>
-//         <li><Link to="/leaderboard">Leaderboard</Link></li>
-//         <li><Link to="/contact">Contact Us</Link></li>
-//       </ul>
-//       <div className="auth-section">
-//         {isAuthenticated ? (
-//           <>
-//             <span>Welcome, {username}!</span>
-//             <button onClick={handleLogout}>Logout</button>
-//           </>
-//         ) : (
-//           <Link to="/login">Login</Link>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from '../App';
 import { AuthContext } from '../context/AuthContext';
+import { FaBars, FaTimes, FaSun, FaMoon } from 'react-icons/fa';
 import './Navbar.css';
 
 const Navbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { isAuthenticated, username, logout } = useContext(AuthContext);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <nav className={`navbar ${theme}`}>
-      <h1>Diced</h1>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/game">Game</Link>
-        </li>
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
-        <li>
-          <Link to="/leaderboard">Leaderboard</Link>
-        </li>
-        <li>
-          <Link to="/contact">Contact Us</Link>
-        </li>
-      </ul>
-      <div className="navbar-right">
-        {isAuthenticated ? (
-          <>
-            <span className="username">{username}</span>
-            <button onClick={logout} className="logout-button">Logout</button>
-          </>
-        ) : (
-          <Link to="/login">Login</Link>
-        )}
-        <button onClick={toggleTheme} className="theme-toggle">
-          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
-        </button>
+      <div className="navbar-left">
+        <h1 className='logo'>Diced</h1>
       </div>
+      <div className="hamburger" onClick={toggleMobileMenu}>
+        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+      </div>
+      <ul className={`navbar-center ${isMobileMenuOpen ? 'open' : ''}`}>
+        <li><Link to="/" onClick={closeMobileMenu}>Home</Link></li>
+        <span className="separator" />
+        <li><Link to="/game" onClick={closeMobileMenu}>Game</Link></li>
+        <span className="separator" />
+        <li><Link to="/profile" onClick={closeMobileMenu}>Profile</Link></li>
+        <span className="separator" />
+        <li><Link to="/leaderboard" onClick={closeMobileMenu}>Leaderboard</Link></li>
+        <span className="separator" />
+        <li><Link to="/contact" onClick={closeMobileMenu}>Contact Us</Link></li>
+        <button onClick={toggleTheme} className={`theme-toggle ${theme}`}>
+          {theme === 'light' ? <FaMoon size={30} /> : <FaSun size={35} />}
+        </button>
+      </ul>
     </nav>
   );
 };

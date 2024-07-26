@@ -1,15 +1,16 @@
+/* Leaderboard Page Styles */
 .leaderboard-page {
   text-align: center;
   padding: 2rem;
 }
 
 .leaderboard-page.light {
-  background-color: #f0f0f0;
+  background-color: #d3d3d3;
   color: #000;
 }
 
 .leaderboard-page.dark {
-  background-color: #1a1a1a;
+  background-color: #282c34;
   color: #fff;
 }
 
@@ -17,10 +18,18 @@
   width: 100%;
   border-collapse: collapse;
   margin: 2rem 0;
+  border-radius: 15px 0 15px 0;
+  border: 1px solid black; 
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-table.light {
+  border: 1px solid #ddd; 
 }
 
 .leaderboard-table th, .leaderboard-table td {
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   padding: 8px;
 }
 
@@ -30,18 +39,98 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
+  font-size: 1.1em;
 }
 
 .leaderboard-table td {
   text-align: center;
 }
 
-.leaderboard-table.light th, .leaderboard-table.light td {
+.leaderboard-table.light th {
+  background-color: #333;
+}
+
+.leaderboard-table.light td {
   background-color: #fff;
   color: #000;
 }
 
-.leaderboard-table.dark th, .leaderboard-table.dark td {
+.leaderboard-table.dark th {
   background-color: #333;
   color: #fff;
+}
+
+.leaderboard-table.dark td {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.leaderboard-table th {
+  font-weight: bold;
+}
+
+.leaderboard-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.leaderboard-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .leaderboard-page h1 {
+    font-size: 2em;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 6px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .leaderboard-page {
+    padding: 1rem;
+  }
+
+  .leaderboard-table {
+    border-radius: 10px;
+    box-shadow: none;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 0.8em;
+  }
+
+  .leaderboard-table th {
+    background-color: #333;
+    color: #fff;
+  }
+
+  .leaderboard-table td {
+    background-color: #282c34;
+    color: #fff;
+    border-top: 1px solid #ddd;
+  }
+
+  .leaderboard-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  .leaderboard-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
 }

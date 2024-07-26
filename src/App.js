@@ -1,7 +1,4 @@
-
-
-
-// import React, { useState, createContext,useContext, useEffect } from 'react';
+// import React, { useState, createContext, useContext, useEffect } from 'react';
 // import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 // import Navbar from './components/Navbar';
 // import Footer from './components/Footer';
@@ -13,6 +10,8 @@
 // import LoginPage from './components/LoginPage';
 // import SignupPage from './components/SignupPage';
 // import { AuthContext, AuthProvider } from './context/AuthContext';
+// // import { ThemeContext } from './ThemeContext';
+
 
 // import './App.css';
 
@@ -25,6 +24,10 @@
 //   const toggleTheme = () => {
 //     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
 //   };
+
+//   useEffect(() => {
+//     document.body.className = theme;
+//   }, [theme]);
 
 //   useEffect(() => {
 //     // Handle potential state updates or authentication checks here if necessary
@@ -63,6 +66,11 @@
 
 
 
+
+
+
+
+// src/App.js
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -82,15 +90,20 @@ export const ThemeContext = createContext();
 
 const AppContent = () => {
   const [theme, setTheme] = useState('light');
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, loading } = useContext(AuthContext);
 
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   useEffect(() => {
-    // Handle potential state updates or authentication checks here if necessary
-  }, [isAuthenticated]);
+    document.body.className = theme;
+  }, [theme]);
+
+  if (loading) {
+    // You can return a loading spinner or any loading indicator here
+    return <div>Loading...</div>;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -100,7 +113,7 @@ const AppContent = () => {
           <Routes>
             <Route path="/" element={isAuthenticated ? <HomePage /> : <Navigate to="/login" />} />
             <Route path="/game" element={isAuthenticated ? <GamePage /> : <Navigate to="/login" />} />
-            <Route path="/profile" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/signup" />} />
+            <Route path="/profile" element={isAuthenticated ? <ProfilePage /> : <Navigate to="/login" />} />
             <Route path="/leaderboard" element={isAuthenticated ? <LeaderboardPage /> : <Navigate to="/login" />} />
             <Route path="/contact" element={isAuthenticated ? <ContactUsPage /> : <Navigate to="/login" />} />
             <Route path="/signup" element={<SignupPage />} />

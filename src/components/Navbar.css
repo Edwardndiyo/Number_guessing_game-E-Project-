@@ -1,13 +1,22 @@
+/* Base Navbar Styles */
 .navbar {
-  padding: 1rem;
+  padding: 0 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  font-family: Arial, sans-serif;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  height: 75px;
 }
 
+/* Light and Dark Mode */
 .navbar.light {
   background-color: #f0f0f0;
   color: #000;
+  border-bottom: 1px solid black;
 }
 
 .navbar.dark {
@@ -15,25 +24,180 @@
   color: #fff;
 }
 
-.navbar ul {
+/* Navbar Content */
+.navbar-left h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.navbar-center {
   list-style: none;
   display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: center;
 }
 
-.navbar ul li {
-  margin-right: 1rem;
+.navbar-center li {
+  margin: 0 1rem;
+  position: relative;
 }
 
-.navbar ul li a {
+.navbar-center .separator {
+  height: 1.5rem;
+  border-left: 1px solid #ccc;
+  margin: 0 0.75rem;
+}
+
+.navbar-center li a {
   color: inherit;
   text-decoration: none;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar-center li a:hover,
+.navbar-center li a:focus,
+.navbar-center li a.active {
+  border-bottom: 2px solid currentColor;
+  border-top: 1px solid currentColor;
 }
 
 .theme-toggle {
-  padding: 0.5rem 1rem;
+  height: 100%; /* Match the height of the navbar */
+  width: 80px;
   background-color: transparent;
+  color: currentColor;
   border: 1px solid currentColor;
-  border-radius: 5px;
+  border-radius: 0 0 15px 0;
   cursor: pointer;
-  width: 150px; /* Defined width */
+  text-transform: uppercase;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 0;
+}
+
+.theme-toggle svg {
+  vertical-align: middle;
+  color: inherit;
+}
+
+.theme-toggle.light {
+  background-color: #282c34;
+  color: #fff;
+}
+
+.theme-toggle.dark {
+  background-color: #282c34;
+  color: #000;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 1rem;
+  z-index: 2; /* Ensure it's above other elements */
+}
+
+@keyframes rotate {
+  0%, 20%, 50%, 80%, 100% { 
+    transform: rotate(0deg); 
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-rotate {
+  0%, 20%, 50%, 80%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+  }
+  40% { 
+    transform: translateY(-30px) rotate(180deg); 
+  }
+  60% { 
+    transform: translateY(-15px) rotate(270deg); 
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+.theme-toggle {
+  animation: rotate 4s infinite;
+}
+
+.logo {
+  animation: bounce-rotate 2s infinite;
+}
+
+
+
+
+/* Responsive Styles */
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navbar-center {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 75%; /* Sidebar width */
+    height: 100%;
+    background-color: inherit;
+    padding-top: 60px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(-100%);
+    z-index: 1; /* Ensure it's below the hamburger icon */
+    overflow-y: auto; /* Allow vertical scrolling if needed */
+  }
+
+  .navbar-center.open {
+    transform: translateX(0);
+  }
+
+  .navbar-center li {
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+  }
+
+  .theme-toggle {
+    margin-top: auto;
+    border-radius: 0;
+    width: auto; /* Set width to auto or a fixed value */
+    padding: 0.75rem; /* Adjust padding */
+    font-size: 1rem; /* Adjust font size */
+    border: none; /* Remove border */
+    background-color: inherit; /* Ensure background matches the sidebar */
+    color: inherit; /* Match text color */
+    text-align: center; /* Center align text */
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .navbar-left h1 {
+    font-size: 1.2rem;
+  }
+
+  .navbar-center li {
+    margin: 1rem 0;
+  }
+
+  .theme-toggle {
+    padding: 0.5rem; /* Adjust padding for smaller screens */
+    font-size: 0.8rem; /* Adjust font size */
+  }
 }

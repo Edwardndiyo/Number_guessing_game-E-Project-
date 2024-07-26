@@ -1,57 +1,16 @@
-/* src/components/LoginPage.css */
-/*
-.login-page {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  input[type="text"],
-  input[type="password"] {
-    width: 100%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #61dafb;
-    color: white;
-    border: none;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #47a7f5;
-  }
-  */
-
 
   /* LoginPage.css and SignupPage.css */
 
-.login-page, .signup-page {
+.login-card{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/background-image.jpg') no-repeat center center;
+  background: url('../images/98eb09406e4537d1087bfea99bd5db79.jpg') no-repeat center center;
   background-size: cover;
 }
 
-.login-card, .signup-card {
+.login-page {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 2rem;
   border-radius: 10px;
@@ -61,11 +20,11 @@
   color: white;
 }
 
-.login-card h1, .signup-card h1 {
+.login-page h1{
   margin-bottom: 1rem;
 }
 
-.login-card p, .signup-card p {
+.login-page p{
   margin-bottom: 2rem;
 }
 
@@ -93,12 +52,12 @@ button {
 }
 
 /* Light mode styles */
-.login-page.light, .signup-page.light {
+/* .login-page.light{
   background: url('/background-image-light.jpg') no-repeat center center;
   background-size: cover;
-}
+} */
 
-.login-card.light, .signup-card.light {
+.login-page.light{
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
 }

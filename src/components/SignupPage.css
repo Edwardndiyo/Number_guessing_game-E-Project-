@@ -1,15 +1,15 @@
 /* LoginPage.css and SignupPage.css */
 
-.login-page, .signup-page {
+.signup-card {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url('/background-image.jpg') no-repeat center center;
+  background: url('../images/98eb09406e4537d1087bfea99bd5db79.jpg') no-repeat center center;
   background-size: cover;
 }
 
-.login-card, .signup-card {
+ .signup-page {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 2rem;
   border-radius: 10px;
@@ -19,11 +19,11 @@
   color: white;
 }
 
-.login-card h1, .signup-card h1 {
+ .signup-page h1 {
   margin-bottom: 1rem;
 }
 
-.login-card p, .signup-card p {
+ .signup-page p {
   margin-bottom: 2rem;
 }
 
@@ -37,6 +37,8 @@
   border-radius: 5px;
   border: none;
   margin-top: 0.5rem;
+  color: black;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 button {
@@ -50,13 +52,7 @@ button {
   margin-top: 1rem;
 }
 
-/* Light mode styles */
-.login-page.light, .signup-page.light {
-  background: url('/background-image-light.jpg') no-repeat center center;
-  background-size: cover;
-}
-
-.login-card.light, .signup-card.light {
+ .signup-page.light {
   background-color: rgba(255, 255, 255, 0.9);
   color: black;
 }

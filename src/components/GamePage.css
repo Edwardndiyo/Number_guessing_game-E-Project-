@@ -1,132 +1,17 @@
-
-/* Default dark mode styles */
-/* .game-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100%;
-  background-color: #282c34;
-  color: white;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-}
-
-.difficulty-selection, .gameplay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.difficulty-selection button {
-  margin: 0.5rem;
-  padding: 1rem;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.beginner {
-  background-color: green;
-}
-
-.amateur {
-  background-color: orange;
-}
-
-.pro {
-  background-color: red;
-}
-
-.number-buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-top: 1rem;
-  justify-content: center;
-}
-
-.number-buttons button {
-  padding: 1rem;
-  font-size: 1.5rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: red;
-  color: white;
-  width: 4rem;
-  height: 4rem;
-}
-
-.hint-system, .number-buttons {
-  margin: 1rem 0;
-}
-
-.message-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  color: white;
-}
-
-.gameplay p {
-  margin: 0.5rem 0;
-}
-
-/* Light mode styles 
-.game-page.light {
-  background-color: #f0f0f0;
-  color: black;
-}
-
-.difficulty-selection.light button {
-  color: black;
-}
-
-.number-buttons.light button {
-  background-color: #d3d3d3;
-  color: black;
-}
-
-.message-box.light {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: black;
-}
-
-
-.number-buttons.light button {
-  background-color: #d3d3d3;
-  color: black;
-}
-
-.message-box.light {
-  background-color: rgba(255, 255, 255, 0.9);
-  color: black;
-} */
-
-
-/* Default dark mode styles */
 .game-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
   background-color: #282c34;
   color: white;
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
 }
+
 
 h1 {
   font-size: 2.5rem;
@@ -218,7 +103,8 @@ h1 {
 
 /* Light mode styles */
 .game-page.light {
-  background-color: #f0f0f0;
+  background-color: #d3d3d3;
+
   color: black;
 }
 
@@ -239,4 +125,115 @@ h1 {
 .end-game-button.light {
   background-color: #282c34;
   color: white;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+.bounce {
+  display: inline-block;
+  animation: bounce 2s infinite;
+}
+
+
+
+/* Responsive Styles for Smaller Screens */
+@media (max-width: 768px) {
+  .game-page {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem; /* Smaller font size */
+    margin-bottom: 0.5rem; /* Adjust margin */
+  }
+
+  .difficulty-selection, .gameplay {
+    width: 100%;
+    margin-bottom: 0.5rem; /* Reduce margin for smaller screens */
+  }
+
+  .difficulty-selection button {
+    padding: 0.6rem; /* Smaller padding */
+    font-size: 1rem; /* Smaller font size */
+    margin: 0.4rem; /* Adjust margin */
+    width: 90%; /* Slightly smaller width */
+  }
+
+  .number-buttons {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr); /* 2 columns */
+    gap: 0.8rem; /* Reduced gap */
+    width: 100%;
+    max-width: 500px; /* Adjust maximum width */
+    margin-top: 0.5rem;
+  }
+
+  .number-buttons button {
+    padding: 0.6rem; /* Smaller padding */
+    font-size: 0.8rem; /* Smaller font size */
+    height: 3rem; /* Smaller height */
+  }
+
+  .message-box {
+    width: 90%; /* Ensure responsiveness */
+    padding: 1rem; /* Adjust padding */
+    font-size: 0.9rem; /* Smaller font size */
+  }
+
+  .gameplay p {
+    margin: 0.3rem 0; /* Reduce margin */
+    font-size: 0.9rem; /* Smaller font size */
+  }
+
+  .highest-score {
+    margin: 0.5rem 0; /* Adjust margin */
+  }
+
+  .end-game-button {
+    padding: 0.4rem 0.8rem; /* Smaller padding */
+    font-size: 0.9rem; /* Smaller font size */
+    margin-top: 0.5rem;
+  }
+
+  /* Light Mode Adjustments */
+  .game-page.light {
+    background-color: #d3d3d3;
+    color: black;
+  }
+
+  .difficulty-selection.light button {
+    color: black;
+  }
+
+  .number-buttons.light button {
+    background-color: #d3d3d3;
+    color: black;
+  }
+
+  .message-box.light {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+  }
+
+  .end-game-button.light {
+    background-color: #282c34;
+    color: white;
+  }
+}
+
+/* Ensure Content Doesn't Overflow into Navbar/Footer */
+@media (max-height: 600px) {
+  .game-page {
+    min-height: 90vh; /* Adjust minimum height */
+  }
 }
