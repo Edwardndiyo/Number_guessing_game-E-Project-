@@ -194,7 +194,6 @@
 }
 
 .features-container {
-
  display: flex;
   align-items: center;
   /* background-color: #f8f9fa; */
@@ -204,8 +203,6 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%; /* Ensure the card spans the full width */
   box-sizing: border-box; 
-  
-
 }
 
 
@@ -286,8 +283,10 @@
   transition: transform 0.5s ease;
 }
 
+
+
 .feedback-card {
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
   margin: 0 1rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -296,6 +295,7 @@
   text-align: left;
   transition: transform 0.5s ease;
   height: 180px;
+  border: 1px dashed currentColor ;
 }
 
 .feedback-card h3 {
@@ -315,12 +315,12 @@
   align-content: center;
 }
 
-.feedback.light .feedback-card {
+.feedback.light {
   background-color: #fff;
   color: #000;
 }
 
-.feedback.dark .feedback-card {
+.feedback.dark {
   background-color: #333;
   color: #fff;
 }
