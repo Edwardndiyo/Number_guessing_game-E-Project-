@@ -29,7 +29,7 @@ const ProfilePage = () => {
     const fetchProfile = async () => {
       try {
         const username = localStorage.getItem('username'); // Assuming the username is stored in localStorage
-        const profileResponse = await axios.get(`http://localhost:5000/get_profile/${username}`);
+        const profileResponse = await axios.get(`https://edwardndiyoo.pythonanywhere.com/get_profile/${username}`);
         
 
         setFormData(profileResponse.data);
@@ -47,7 +47,7 @@ const ProfilePage = () => {
       try {
         const username = localStorage.getItem('username'); // Assuming the username is stored in localStorage
        
-        const gameRecordsResponse = await axios.get(`http://localhost:5000/get_game_records/${username}`);
+        const gameRecordsResponse = await axios.get(`https://edwardndiyoo.pythonanywhere.com/get_game_records/${username}`);
 
     
         setGameRecords(gameRecordsResponse.data);
@@ -84,7 +84,7 @@ const ProfilePage = () => {
 
       try {
         const username = localStorage.getItem('username'); // Assuming the username is stored in localStorage
-        const response = await axios.post('http://localhost:5000/update_profile', {
+        const response = await axios.post('https://edwardndiyoo.pythonanywhere.com/update_profile', {
           ...formData,
           username,
           oldPassword: passwords.oldPassword,

@@ -27,7 +27,7 @@ const Footer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/feedback', feedback);
+      const response = await axios.post('https://edwardndiyoo.pythonanywhere.com/feedback', feedback);
       alert(response.data.message);
       setFeedback({
         username: username || '', // Reset the username field after submission

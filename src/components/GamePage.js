@@ -37,7 +37,7 @@ const GamePage = () => {
     const fetchHighestScore = async () => {
       if (username) {
         try {
-          const response = await axios.get(`http://localhost:5000/get_highest_score/${username}`);
+          const response = await axios.get(`https://edwardndiyoo.pythonanywhere.com/get_highest_score/${username}`);
           setHighestScore(response.data.highestScore || 0);
         } catch (error) {
           console.error('Error fetching highest score:', error);
@@ -124,12 +124,12 @@ const GamePage = () => {
 
   const handleEndGame = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/get_highest_score/${username}`);
+      const response = await axios.get(`https://edwardndiyoo.pythonanywhere.com/get_highest_score/${username}`);
       const existingHighestScore = response.data.highestScore || 0;
 
       // Update the leaderboard if it's a new high score
       if (scores.total > existingHighestScore) {
-        await axios.post('http://localhost:5000/update_scores', {
+        await axios.post('https://edwardndiyoo.pythonanywhere.com/update_scores', {
           username,
           beginner: scores.beginner,
           amateur: scores.amateur,
@@ -139,7 +139,7 @@ const GamePage = () => {
       }
 
       // Always update the player history table
-      await axios.post('http://localhost:5000/update_player_history', {
+      await axios.post('https://edwardndiyoo.pythonanywhere.com/update_player_history', {
         username,
         beginner: scores.beginner,
         amateur: scores.amateur,

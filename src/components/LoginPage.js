@@ -23,7 +23,7 @@ const LoginPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', formData);
+      const response = await axios.post('https://edwardndiyoo.pythonanywhere.com/login', formData);
       console.log(response.data);
       if (response.data.success) {
         login(formData.username);
