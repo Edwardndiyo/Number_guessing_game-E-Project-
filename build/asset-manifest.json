@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.314ddad4.chunk.css",
+    "main.js": "/static/js/main.6ce9c5bb.chunk.js",
+    "main.js.map": "/static/js/main.6ce9c5bb.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.b22a5fca.js",
+    "runtime~main.js.map": "/static/js/runtime~main.b22a5fca.js.map",
+    "static/js/2.23f64e0e.chunk.js": "/static/js/2.23f64e0e.chunk.js",
+    "static/js/2.23f64e0e.chunk.js.map": "/static/js/2.23f64e0e.chunk.js.map",
+    "static/js/3.2ee60a5f.chunk.js": "/static/js/3.2ee60a5f.chunk.js",
+    "static/js/3.2ee60a5f.chunk.js.map": "/static/js/3.2ee60a5f.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.270bfc1bfbdbee49bd028b4cd5179abd.js": "/precache-manifest.270bfc1bfbdbee49bd028b4cd5179abd.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.314ddad4.chunk.css.map": "/static/css/main.314ddad4.chunk.css.map",
+    "static/media/717fd4d6f85a77a6eaebc9eec0dfcd69.jpg": "/static/media/717fd4d6f85a77a6eaebc9eec0dfcd69.e9ccc883.jpg",
+    "static/media/HomePage.css": "/static/media/Rolling_Dice_by_ianllanason_DeviantArt.2ccb2cff.jpg",
+    "static/media/SignupPage.css": "/static/media/98eb09406e4537d1087bfea99bd5db79.69e0a894.jpg",
+    "static/media/Rpg_Dice_Drawing.jpg": "/static/media/Rpg_Dice_Drawing.6363a051.jpg"
+  }
+}

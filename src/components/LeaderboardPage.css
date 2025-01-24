@@ -2,6 +2,7 @@
 .leaderboard-page {
   text-align: center;
   padding: 2rem;
+  padding-top: 65px;
 }
 
 .leaderboard-page.light {

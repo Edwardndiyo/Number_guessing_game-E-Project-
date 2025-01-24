@@ -15,7 +15,7 @@ const HomePage = () => {
   
   useEffect(() => {
     // Fetch initial feedbacks from the server
-    fetch('http://localhost:5000/get_feedbacks')
+    fetch(' https://edwardndiyoo.pythonanywhere.com/get_feedbacks')
       .then(response => response.json())
       .then(data => setFeedbacks(data))
       .catch(error => console.error('Error fetching feedbacks:', error));
@@ -118,3 +118,7 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+
+

@@ -3,6 +3,7 @@ import { ThemeContext } from '../App';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import './GamePage.css';
+import { useNavigate } from 'react-router-dom'; 
 
 const difficulties = {
   beginner: { range: 100, scoreIncrement: 5, penalty: 5 },
@@ -32,12 +33,13 @@ const GamePage = () => {
   const [highestScore, setHighestScore] = useState(0);
   const [gamePlayed, setGamePlayed] = useState(false);
   const [isGameActive, setIsGameActive] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchHighestScore = async () => {
       if (username) {
         try {
-          const response = await axios.get(`http://localhost:5000/get_highest_score/${username}`);
+          const response = await axios.get(` https://edwardndiyoo.pythonanywhere.com/get_highest_score/${username}`);
           setHighestScore(response.data.highestScore || 0);
         } catch (error) {
           console.error('Error fetching highest score:', error);
@@ -124,12 +126,12 @@ const GamePage = () => {
 
   const handleEndGame = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/get_highest_score/${username}`);
+      const response = await axios.get(` https://edwardndiyoo.pythonanywhere.com/get_highest_score/${username}`);
       const existingHighestScore = response.data.highestScore || 0;
 
       // Update the leaderboard if it's a new high score
       if (scores.total > existingHighestScore) {
-        await axios.post('http://localhost:5000/update_scores', {
+        await axios.post(' https://edwardndiyoo.pythonanywhere.com/update_scores', {
           username,
           beginner: scores.beginner,
           amateur: scores.amateur,
@@ -139,7 +141,7 @@ const GamePage = () => {
       }
 
       // Always update the player history table
-      await axios.post('http://localhost:5000/update_player_history', {
+      await axios.post(' https://edwardndiyoo.pythonanywhere.com/update_player_history', {
         username,
         beginner: scores.beginner,
         amateur: scores.amateur,
@@ -154,7 +156,9 @@ const GamePage = () => {
         total: 0,
       });
       setGamePlayed(false);
-      window.location.href = '/game';
+      // <Link to="/game" ></Link>
+      navigate('/game');
+      // window.location.href = '/game';
     } catch (error) {
       console.error('Error handling end game:', error);
     }

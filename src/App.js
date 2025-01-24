@@ -11,6 +11,7 @@ import ContactUsPage from './components/ContactUsPage';
 import LoginPage from './components/LoginPage';
 import SignupPage from './components/SignupPage';
 import { AuthContext, AuthProvider } from './context/AuthContext';
+// import firebase from './firebase';
 
 import './App.css';
 

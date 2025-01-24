@@ -6,6 +6,16 @@ import smtplib
 from datetime import datetime 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import firebase_admin
+from firebase_admin import credentials, firestore
+
+# Path to your Firebase Admin SDK private key file
+cred = credentials.Certificate('../functions/number-guessing-game-3423e-firebase-adminsdk-ivpc1-58e0208867.json')
+firebase_admin.initialize_app(cred)
+
+# Initialize Firestore DB
+db = firestore.client()
+
 
 import logging
 
@@ -14,13 +24,23 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 CORS(app)
 
+
 # Configure MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'APTECH_ENROLLMENTAPP_DB'
 app.config['MYSQL_PASSWORD'] = 'EW36a844r**#'
 app.config['MYSQL_DB'] = 'number_guessing_game'
 
+# app.config['MYSQL_HOST'] = '172.20.10.1'
+# app.config['MYSQL_USER'] = 'if0_36998956'
+# app.config['MYSQL_PASSWORD'] = 'hcHaNXYUZ0'
+# app.config['MYSQL_DB'] = 'if0_36998956_number_guessing_game'
+
+
 mysql = MySQL(app)
+
+
+
 
 @app.route('/signup', methods=['POST', 'OPTIONS'])
 def signup():
@@ -40,13 +60,25 @@ def signup():
 
     hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO users (full_name, email, number, username, password) VALUES (%s, %s, %s, %s, %s)',
-                   (full_name, email, number, username, hashed_password))
-    mysql.connection.commit()
-    cursor.close()
-    
-    return jsonify({'success': True, 'message': 'User registered successfully'}), 201
+    try:
+        # Create user with Firebase Authentication
+        user = auth.create_user(
+            email=email,
+            password=password,
+            display_name=full_name
+        )
+
+        # Save user details in Firestore
+        user_ref = db.collection('users').document(username)
+        user_ref.set({
+            'full_name': full_name,
+            'email': email,
+            'number': number,
+            'password': hashed_password
+        })
+        return jsonify({'success': True, 'message': 'User registered successfully'}), 201
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 400
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -54,16 +86,15 @@ def login():
     username = data['username']
     password = data['password']
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
-    user = cursor.fetchone()
-    cursor.close()
-
-    if user and check_password_hash(user[5], password):  # Assuming password is the 5th column (index 4)
-        
-        return jsonify({'success': True, 'message': 'Login successful'}), 200
+    user_ref = db.collection('users').document(username).get()
+    if user_ref.exists:
+        user_data = user_ref.to_dict()
+        if check_password_hash(user_data['password'], password):
+            return jsonify({'success': True, 'message': 'Login successful'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Invalid credentials'}), 401
     else:
-        return jsonify({'success': False, 'message': 'Invalid credentials'}), 401
+        return jsonify({'success': False, 'message': 'User not found'}), 404
 
 @app.route('/feedback', methods=['POST', 'OPTIONS'])
 def feedback():
@@ -79,71 +110,55 @@ def feedback():
     email = data['email']
     feedback = data['feedback']
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO userfeedback (username, email, feedback) VALUES (%s, %s, %s)',
-                   (username, email, feedback))
-    mysql.connection.commit()
-    cursor.close()
-    
+    db.collection('userfeedback').add({
+        'username': username,
+        'email': email,
+        'feedback': feedback
+    })
+
     return jsonify({'message': 'Feedback submitted successfully'}), 201
 
 @app.route('/get_feedbacks', methods=['GET'])
 def get_feedbacks():
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT username, feedback FROM userfeedback')
-    feedbacks = cursor.fetchall()
-    cursor.close()
-
-    feedback_list = [{'name': feedback[0], 'comment': feedback[1]} for feedback in feedbacks]
-
+    feedbacks_ref = db.collection('userfeedback').stream()
+    feedback_list = [{'name': feedback.id, 'comment': feedback.to_dict()['feedback']} for feedback in feedbacks_ref]
     return jsonify(feedback_list), 200
 
 @app.route('/get_leaderboard', methods=['GET'])
 def get_leaderboard():
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT username, beginner, amateur, pro, totalscore FROM leaderboard')
-    leaderboard = cursor.fetchall()
-    cursor.close()
-
-    leaderboard_list = [{'username': entry[0], 'beginnerScore': entry[1], 'amateurScore': entry[2], 'proScore': entry[3], 'totalScore': entry[4]} for entry in leaderboard]
-
+    leaderboard_ref = db.collection('leaderboard').stream()
+    leaderboard_list = [{'username': entry.id, **entry.to_dict()} for entry in leaderboard_ref]
     return jsonify(leaderboard_list), 200
 
 @app.route('/get_highest_score/<username>', methods=['GET'])
 def get_highest_score(username):
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT totalscore FROM leaderboard WHERE username = %s', (username,))
-    result = cursor.fetchone()
-    cursor.close()
-
-    if result:
-        highest_score = result[0]
+    leaderboard_ref = db.collection('leaderboard').document(username).get()
+    if leaderboard_ref.exists:
+        highest_score = leaderboard_ref.to_dict().get('totalscore', 0)
+        return jsonify({'highestScore': highest_score}), 200
     else:
-        highest_score = 0
-
-    return jsonify({'highestScore': highest_score}), 200
-
-
+        return jsonify({'highestScore': 0}), 200
 
 @app.route('/update_player_history', methods=['POST'])
 def update_player_history():
     data = request.get_json()
     username = data['username']
     beginner = data['beginner']
-    amateur = data['amateur']   
+    amateur = data['amateur']
     pro = data['pro']
     totalscore = data['totalscore']
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO player_history (username, beginner, amateur, pro, totalscore, date) VALUES (%s, %s, %s, %s, %s, %s)', 
-                   (username, beginner, amateur, pro, totalscore, current_time))
-    
-    mysql.connection.commit()
-    cursor.close()
+    db.collection('player_history').add({
+        'username': username,
+        'beginner': beginner,
+        'amateur': amateur,
+        'pro': pro,
+        'totalscore': totalscore,
+        'date': current_time
+    })
 
     return jsonify({'message': 'Player history updated successfully'}), 200
-
 
 @app.route('/update_scores', methods=['POST'])
 def update_scores():
@@ -154,68 +169,45 @@ def update_scores():
     pro = data['pro']
     totalscore = data['totalscore']
 
-    logging.debug(f"Received update_scores request: username={username}, beginner={beginner}, amateur={amateur}, pro={pro}, totalscore={totalscore}")
-
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT * FROM leaderboard WHERE username = %s', (username,))
-    user = cursor.fetchone()
-
-    if user:
-        cursor.execute('UPDATE leaderboard SET beginner = %s, amateur = %s, pro = %s, totalscore = %s WHERE username = %s', 
-                       (beginner, amateur, pro, totalscore, username))
+    leaderboard_ref = db.collection('leaderboard').document(username)
+    if leaderboard_ref.get().exists:
+        leaderboard_ref.update({
+            'beginner': beginner,
+            'amateur': amateur,
+            'pro': pro,
+            'totalscore': totalscore
+        })
     else:
-        cursor.execute('INSERT INTO leaderboard (username, beginner, amateur, pro, totalscore) VALUES (%s, %s, %s, %s, %s)', 
-                       (username, beginner, amateur, pro, totalscore))
-    
-    mysql.connection.commit()
-    cursor.close()
+        leaderboard_ref.set({
+            'beginner': beginner,
+            'amateur': amateur,
+            'pro': pro,
+            'totalscore': totalscore
+        })
 
     return jsonify({'message': 'Scores updated successfully'}), 200
 
-
-
 @app.route('/get_profile/<username>', methods=['GET'])
 def get_profile(username):
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT full_name, email, number, username FROM users WHERE username = %s', (username,))
-    user = cursor.fetchone()
-    cursor.close()
-
-    if user:
-        user_data = {
-            'full_name': user[0],
-            'email': user[1],
-            'number': user[2],
-            'username': user[3]
-        }
+    user_ref = db.collection('users').document(username).get()
+    if user_ref.exists:
+        user_data = user_ref.to_dict()
         return jsonify(user_data), 200
     else:
         return jsonify({'message': 'User not found'}), 404
 
-
-
 @app.route('/get_game_records/<username>', methods=['GET'])
 def get_game_records(username):
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT beginner, amateur, pro, totalscore, date FROM player_history WHERE username = %s', (username,))
-    records = cursor.fetchall()  # Changed from fetchone() to fetchall()
-    cursor.close()
-
-    if records:
-        # Convert the fetched records to a list of dictionaries
-        records_data = [
-            {
-                'beginner': record[0],
-                'amateur': record[1],
-                'pro': record[2],
-                'total': record[3],
-                'date': record[4]
-            } for record in records
-        ]
+    records_ref = db.collection('player_history').where('username', '==', username).stream()
+    records_data = [{'beginner': record.to_dict()['beginner'],
+                     'amateur': record.to_dict()['amateur'],
+                     'pro': record.to_dict()['pro'],
+                     'total': record.to_dict()['totalscore'],
+                     'date': record.to_dict()['date']} for record in records_ref]
+    if records_data:
         return jsonify(records_data), 200
     else:
         return jsonify({'message': 'Records not found'}), 404
-
 
 @app.route('/update_profile', methods=['POST'])
 def update_profile():
@@ -227,60 +219,26 @@ def update_profile():
     old_password = data['oldPassword']
     new_password = data['newPassword']
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('SELECT password FROM users WHERE username = %s', (username,))
-    user = cursor.fetchone()
-
-    if user and check_password_hash(user[0], old_password):
-        hashed_password = generate_password_hash(new_password, method='pbkdf2:sha256')
-        cursor.execute('UPDATE users SET full_name = %s, email = %s, number = %s, password = %s WHERE username = %s',
-                       (full_name, email, number, hashed_password, username))
-        mysql.connection.commit()
-        cursor.close()
-        return jsonify({'success': True, 'message': 'Profile updated successfully'}), 200
+    user_ref = db.collection('users').document(username).get()
+    if user_ref.exists:
+        user_data = user_ref.to_dict()
+        if check_password_hash(user_data['password'], old_password):
+            hashed_password = generate_password_hash(new_password, method='pbkdf2:sha256')
+            user_ref.update({
+                'full_name': full_name,
+                'email': email,
+                'number': number,
+                'password': hashed_password
+            })
+            return jsonify({'success': True, 'message': 'Profile updated successfully'}), 200
+        else:
+            return jsonify({'success': False, 'message': 'Incorrect old password'}), 401
     else:
-        cursor.close()
-        return jsonify({'success': False, 'message': 'Old password is incorrect'}), 401
+        return jsonify({'success': False, 'message': 'User not found'}), 404
 
-@app.route('/contact', methods=['POST'])
-def contact():
-    data = request.get_json()
-    name = data['name']
-    email = data['email']
-    message = data['message']
 
-    cursor = mysql.connection.cursor()
-    cursor.execute('INSERT INTO contact (Name, email, message) VALUES (%s, %s, %s)', (name, email, message))
-    mysql.connection.commit()
-    cursor.close()
 
-    # Send email
-    send_email(name, email, message)
 
-    return jsonify({'message': 'Contact message submitted successfully'}), 201
-
-def send_email(name, email, message):
-    sender_email = 'NdiyoEdward@gmail.com'
-    sender_password = 'nhta zxnx xdas bngl'
-    receiver_email = email
-
-    msg = MIMEMultipart()
-    msg['From'] = sender_email
-    msg['To'] = receiver_email
-    msg['Subject'] = f'Number_Guessing_Game - Contact Form Submission from {name}'
-
-    body = f'Name: {name}\nEmail: {email}\nMessage: {message}'
-    msg.attach(MIMEText(body, 'plain'))
-
-    try:
-        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login(sender_email, sender_password)
-        text = msg.as_string()
-        server.sendmail(sender_email, receiver_email, text)
-        server.quit()
-        print('Email sent successfully')
-    except Exception as e:
-        print(f'Failed to send email: {e}')
 
 if __name__ == '__main__':
     app.run(debug=True)

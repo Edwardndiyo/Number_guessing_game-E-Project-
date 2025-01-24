@@ -26,10 +26,10 @@ const ContactUsPage = () => {
     e.preventDefault();
     const message = `Hello Edward, I am ${formData.name} with email address ${formData.email}. I just checked out your application and I liked it. Here's my message - ${formData.message}.`;
     const whatsappUrl = `https://wa.me/2348073342004?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    // window.open(whatsappUrl, '_blank');
 
     try {
-      const response = await axios.post('http://localhost:5000/contact', formData);
+      const response = await axios.post('https://edwardndiyoo.pythonanywhere.com/contact', formData);
       alert(response.data.message);
     } catch (error) {
       console.error('Error:', error);
